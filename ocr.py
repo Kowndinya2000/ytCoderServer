@@ -16,7 +16,7 @@ fps = 30
 frame_seq = (timeStamp*fps)*100
 frame_no = (timeStamp/time_length)
 # for local /home/kowdinya/Documents/ytCoderServer
-for file in os.listdir("/"):
+for file in os.listdir("./"):
     if(file == "frame"  + str(timeStamp) + videoPafy.title  + ".jpg"):
         frame_exists = True
         video_exists = True
