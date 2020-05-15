@@ -14,3 +14,4 @@ sudo apt install snapd
 sudo apt update
 sudo apt upgrade
 sudo snap install ffmpeg
+sudo pip3 install opencv-contrib-python
