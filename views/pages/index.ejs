@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <style>
+          .progress {
+            margin: 15px;
+        }
+
+        .progress .progress-bar.active {
+            font-weight: 700;
+            animation: progress-bar-stripes .5s linear infinite;
+        }
+
+        .dotdotdot:after {
+            font-weight: 300;
+            content: '...';
+            display: inline-block;
+            width: 20px;
+            text-align: left;
+            animation: dotdotdot 1.5s linear infinite;
+        }
+
+        @keyframes dotdotdot {
+          0%   { content: '...'; }
+          25% { content: ''; }
+          50% { content: '.'; }
+          75% { content: '..'; }
+        }
+      </style>
       <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
       <title>YT CODER</title>
       <script>
         function fetch() 
         {
+            document.getElementById('progress_bar').style.display = 'block'
             var inp1 = document.getElementById('url').value;
             var inp2 = document.getElementById('timestamp').value.split(":")
             var a1 = parseInt(inp2[1])
@@ -17,6 +44,8 @@
               {
                 var result = []; 
                 result = JSON.parse(this.responseText).message;
+                document.getElementById('progress_bar').style.display = 'none'
+                document.getElementById('complete').style.display = 'block'
                 document.getElementById('code').style.display = 'block'
                 for(var i=0;i<result.length-1;i++)
                 {
@@ -48,6 +77,17 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <div style="display: none;" id="complete">
+      <p style="font-weight: bolder;color:green;text-align:center;font-size:1.3rem;">Code extraction Completed!</p>
+    </div>
+    <!-- <div class="progress" style="display: none;height:20px;margin:3rem;" id="progress_bar" >
+      <div class="progress-bar progress-bar-striped  active progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+        <span>Please Wait<span class="dotdotdot"></span></span>
+      </div>
+    </div> -->
+    <div id="progress_bar" style="text-align:center;color:#53588B;display:none;">
+      Analyzing! Please Wait...
+    </div>
     <form style="margin: 3rem;">
         <div class="form-group">
           <label for="url">YouTube Video URL</label>

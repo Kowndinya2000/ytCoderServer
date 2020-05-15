@@ -20,11 +20,9 @@ for file in os.listdir("./"):
     if(file == "frame"  + str(timeStamp) + videoPafy.title  + ".jpg"):
         frame_exists = True
         video_exists = True
-        print('frame exists')
         break
     if(file == videoPafy.title + ".mp4"):
         video_exists = True
-        print('video exists')
 streams = videoPafy.streams  
 if(video_exists == False):
     best = videoPafy.getbest()
