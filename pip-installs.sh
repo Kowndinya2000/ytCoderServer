@@ -7,7 +7,7 @@ sudo pip install pytesseract
 sudo pip install pillow
 sudo pip install nltk
 sudo pip install youtube_dl
-sudo pip3 install --trusted-host pypi.python.org moviepy
+sudo pip install --trusted-host pypi.python.org moviepy
 sudo apt update
 sudo apt upgrade
 sudo apt install snapd

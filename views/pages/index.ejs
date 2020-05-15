@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
       <title>YT CODER</title>
       <script>
         function fetch() 
         {
+            var inp1 = document.getElementById('url').value;
+            var inp2 = document.getElementById('timestamp').value.split(":")
+            var a1 = parseInt(inp2[1])
+            var a2 = a1 + (parseInt(inp2[0])*60.0)
             var xhttp = new XMLHttpRequest()
             xhttp.onreadystatechange = function () 
             {
@@ -12,17 +17,55 @@
               {
                 var result = []; 
                 result = JSON.parse(this.responseText).message;
+                document.getElementById('code').style.display = 'block'
+                for(var i=0;i<result.length-1;i++)
+                {
+                  if(result[i].length == 0)
+                  {
+                    //do nothing
+                  }
+                  else if((result[i].match(/\s/g) || []).length == result[i].length)
+                  {
+                    //do nothing
+                  }
+                  else 
+                  {
+                    document.getElementById('exampleFormControlTextarea6').value += result[i] + "\n" 
+                  }
+                }
                 console.log(result)
               }      
             }
             xhttp.open("POST","/",true)
             xhttp.setRequestHeader('Content-type',"application/x-www-form-urlencoded")
-            var url = "https://www.youtube.com/watch?v=W1e5wO7XR2w" + "--" + "0:55" + "--" + "12:23"
+            var url = inp1 + "--" + a2
             xhttp.send('link='+url)  
         }
       </script>
 </head>
-<body>           
-  <button onclick="fetch('youtube.com')">Click</button>
+<body style="font-family: 'Ubuntu', sans-serif;">         
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <form style="margin: 3rem;">
+        <div class="form-group">
+          <label for="url">YouTube Video URL</label>
+          <input type="url" class="form-control" id="url" aria-describedby="urlHelp" placeholder="Enter youtube url">
+          <small id="urlHelp" class="form-text text-muted">Processing may take time to download the video</small>
+        </div>
+        <div class="form-group">
+            <label for="timestamp">SnapShot TimeStamp</label>
+            <input type="time" class="form-control" id="timestamp" aria-describedby="timestampHelp" placeholder="01:53" min="00:00">
+            <small id="timestampHelp" class="form-text text-muted">Give the timestamp value with in video length</small>
+        </div>
+        <button class="btn btn-outline-secondary" onclick="fetch()" style="background: #53588B;color:white;font-size:1rem;" type="button">Extract Text</button>
+      </form> 
+
+      <div class="form-group shadow-textarea" id="code" style="display: none;margin: 1rem 3rem;">
+        <label for="exampleFormControlTextarea6">Extracted Code</label>
+        <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="15" placeholder=""></textarea>
+      </div>
+      
 </body>
 </html>
