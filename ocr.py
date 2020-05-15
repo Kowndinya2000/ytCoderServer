@@ -33,14 +33,6 @@ if(bool_flag == False):
     print(best)
     best.download()
 import cv2
-# 
-# cap.set(2,frame_no)
-# ret, frame = cap.read()
-# gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-# my_video_name = best.url.split(".")[0]
-# cv2.imshow(my_video_name + "frame "+ str(frame_seq),gray)
-# cv2.waitKey()
-# cv2.imwrite(my_video_name+"_frame_"+str(frame_seq)+'.jpg',gray)
 import imageio
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 ffmpeg_extract_subclip(videoPafy.title + ".mp4", timeStamp, timeStamp + 1, targetname="cut.mp4")
