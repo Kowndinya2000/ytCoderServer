@@ -20,12 +20,9 @@ express()
     next();
     })
   .get('/', (req, res) => {
-    res.header('Acess-Control-Allow-Credentials','true')
-    res.header('Access-Control-Allow-Origin', '*');
     res.render('pages/index',{message:""})
     })
   .post('/',(req, res) => {
-    req.header('Access-Control-Allow-Origin', '*');
     let {PythonShell} = require('python-shell') 
     let pyshell = new PythonShell('ocr.py')
     var url = req.body.link.split("--")[0];
