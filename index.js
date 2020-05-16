@@ -4,6 +4,9 @@ var PORT = process.env.PORT || 5000
 var bodyParser = require("body-parser")
 var cors = require('cors')
 var result_text = [];
+const corsOptions = {
+  origin: 'https://youtube.com'
+}
 express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
@@ -20,10 +23,14 @@ express()
     res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
     next();
     })
-  .get('/', (req, res) => {
+  .get('/', cors(corsOptions), (req, res) => {
     res.render('pages/index',{message:""})
     })
-  .post('/',(req, res) => {
+  .post('/', cors(corsOptions),(req, res) => {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
     let {PythonShell} = require('python-shell') 
     let pyshell = new PythonShell('ocr.py')
     pyshell.send(req.body.link)
